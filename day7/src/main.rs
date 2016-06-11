@@ -2,6 +2,7 @@
 use std::collections::BTreeMap;
 use std::io::prelude::Read;
 use std::fs::File;
+use std::cmp::Ordering;
 
 #[derive(Debug, Clone)]
 enum Operator {
@@ -57,33 +58,31 @@ fn parse(s: &str) -> Token {
     }
 }
 
-fn find_value(expr: Token, vars: &BTreeMap<String, u16>) -> Token {
-    match expr {
-        Token::Statement(a, var) => {
-            match a.parse() {
-                Ok(value) => Token::Result(var, value),
-                Err(_) => find_value(Token::Statement(var, *vars.get(&a).unwrap()), vars),
-            }
-        },
-        Token::Result(var, a) => Token::Result(var, a),
-        _ => Token::UnknownSyntax,
-    };
-}
-
 fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
     let expr_clone = expr.clone();
     match expr {
         Token::Statement(a, var) => {
-            let _ = find_value(expr_clone, vars);
             match a.parse() {
                 Ok(numb) => Some(Token::Result(var, numb)),
-                Err(_) => Some(Token::Statement(a, var))
+                Err(_) => {
+                    match vars.get(&a) {
+                        Some(value) => {
+                            Some(Token::Result(var, *value))
+                        }
+                        None => Some(Token::Statement(a, var))
+                    }
+                }
             }
         }
         Token::Expression(operator, a, b, var) => {
             let a_value = match vars.get(&a) {
-                Some(value) => value,
-                None => { return None; },
+                Some(value) => value.clone(),
+                None => {
+                    match a.parse() {
+                        Ok(value) => value,
+                        Err(_) => { return None; }
+                    }
+                },
             };
             match operator {
                 Operator::AND => {
@@ -117,11 +116,17 @@ fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
 fn main() {
     let mut vars: BTreeMap<String, u16> = BTreeMap::new();
     let mut stack: Vec<Token> = Vec::new();
+    let mut all_expr: Vec<Token> = Vec::new();
     let mut f = File::open("input.txt").expect("[error] can't open file!");
     let mut buffer = String::new();
     f.read_to_string(&mut buffer).expect("[error] can't read from file!");
+    // подумать насчёт многопараметровой сортировки
+    // 1. сортировка по выходному параметру
+    // 2. сортировка по приоритету функции
+    // -- Result > Statement > Inverter > Expression
     for expression in buffer.lines() {
         let expr = parse(expression);
+        all_expr.push(expr.clone());
         match execute(expr.clone(), &vars) {
             Some(Token::Result(var, num)) => { vars.insert(var, num); },
             Some(Token::Statement(a, var)) => { stack.push(Token::Statement(a, var)); },
@@ -138,9 +143,7 @@ fn main() {
                 _ => { stack.push(expr); },
             };
         }
-        println!("stack_len = {}", stack.len());
     }
-    for (var, value) in vars.iter() {
-        println!("{}: {}", var, value);
-    }
+    let a = vars.get("a").unwrap();
+    println!("a = {}", a);
 }
