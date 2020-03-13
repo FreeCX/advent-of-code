@@ -26,7 +26,7 @@ fn checker<'a>(line: &'a str) -> bool {
 }
 
 #[test]
-fn examples {
+fn examples() {
     assert_eq!(checker("ugknbfddgicrmopn"), true);
     assert_eq!(checker("aaa"), true);
     assert_eq!(checker("jchzalrnumimnmhp"), false);

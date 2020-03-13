@@ -1,4 +1,3 @@
-#![feature(slice_patterns)] 
 use std::fs::File;
 use std::io::Read;
 use std::str::FromStr;
@@ -25,18 +24,12 @@ enum Command {
     TurnOff(Pos, Pos),
 }
 
-impl Pos {
-    fn new(x: usize, y: usize) -> Pos {
-        Pos { x: x, y: y }
-    }
-}
-
 impl FromStr for Pos {
     type Err = ParseIntError;
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let raw: Vec<_> = s.split(',').collect();
-        let x = try!(raw[0].parse());
-        let y = try!(raw[1].parse());
+        let x = raw[0].parse()?;
+        let y = raw[1].parse()?;
         Ok(Pos { x: x, y: y })
     }
 }
@@ -70,7 +63,7 @@ impl R {
 
 fn parse(cmd: &str) -> Command {
     let raw: Vec<_> = cmd.split(' ').collect();
-    match raw.as_slice() {
+    match raw[..] {
         ["turn", "on", a, "through", b] => Command::TurnOn(a.parse().unwrap(), b.parse().unwrap()),
         ["turn", "off", a, "through", b] => Command::TurnOff(a.parse().unwrap(), b.parse().unwrap()),
         ["toggle", a, "through", b] => Command::Toggle(a.parse().unwrap(), b.parse().unwrap()),

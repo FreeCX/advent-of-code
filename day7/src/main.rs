@@ -1,8 +1,6 @@
-#![feature(slice_patterns)]
 use std::collections::BTreeMap;
 use std::io::prelude::Read;
 use std::fs::File;
-use std::cmp::Ordering;
 
 #[derive(Debug, Clone)]
 enum Operator {
@@ -44,22 +42,21 @@ fn parse(s: &str) -> Token {
     match &data[..] {
         // a OP b -> v
         [a, op, b, "->", variable] => {
-            Token::Expression(get_op(op), a.to_owned(), b.to_owned(), variable.to_owned())
+            Token::Expression(get_op(op), a.to_string(), b.to_string(), variable.to_string())
         },
         // NOT a -> v
         ["NOT", a, "->", variable] => {
-            Token::Inverter(a.to_owned(), variable.to_owned())
+            Token::Inverter(a.to_string(), variable.to_string())
         }
         // a -> v
         [number, "->", variable] => {
-            Token::Statement(number.to_owned(), variable.to_owned())
+            Token::Statement(number.to_string(), variable.to_string())
         }
         _ => Token::UnknownSyntax,
     }
 }
 
 fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
-    let expr_clone = expr.clone();
     match expr {
         Token::Statement(a, var) => {
             match a.parse() {
@@ -134,7 +131,7 @@ fn main() {
         };
     }
     while !vars.get("a").is_some() {
-        let mut new_stack = stack.clone();
+        let new_stack = stack.clone();
         stack.clear();
         for expr in new_stack {
             match execute(expr.clone(), &vars) {
