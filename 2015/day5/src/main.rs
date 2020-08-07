@@ -1,7 +1,6 @@
-use std::io::prelude::Read;
-use std::fs::File;
+use std::fs;
 
-fn checker<'a>(line: &'a str) -> bool {
+fn checker_one<'a>(line: &'a str) -> bool {
     fn rule_two<'a>(line: &'a str) -> bool {
         let mut last_char = line.chars().nth(0).unwrap();
         for curr_char in line.chars().skip(1) {
@@ -25,24 +24,39 @@ fn checker<'a>(line: &'a str) -> bool {
     rule_one && rule_two(line) && rule_three(line)
 }
 
-#[test]
-fn examples() {
-    assert_eq!(checker("ugknbfddgicrmopn"), true);
-    assert_eq!(checker("aaa"), true);
-    assert_eq!(checker("jchzalrnumimnmhp"), false);
-    assert_eq!(checker("haegwjzuvuyypxyu"), false);
-    assert_eq!(checker("dvszwmarrgswjxmb"), false);
-}
-
-fn main() {
-    let mut f = File::open("input.txt").expect("[error] can't open file!");
-    let mut buffer = String::new();
-    f.read_to_string(&mut buffer).expect("[error] can't read from file!");
+fn nice_count_one(buffer: &str) -> usize {
     let mut nice_count = 0_usize;
     for line in buffer.lines() {
-        if checker(line) {
+        if checker_one(line) {
             nice_count += 1;
         }
     }
-    println!("nice strings = {}", nice_count);
+    nice_count
+}
+
+fn nice_count_two(_buffer: &str) -> usize {
+    todo!()
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::checker_one;
+
+    #[test]
+    fn t01() { assert_eq!(checker_one("ugknbfddgicrmopn"), true); }
+    #[test]
+    fn t02() { assert_eq!(checker_one("aaa"), true); }
+    #[test]
+    fn t03() { assert_eq!(checker_one("jchzalrnumimnmhp"), false); }
+    #[test]
+    fn t04() { assert_eq!(checker_one("haegwjzuvuyypxyu"), false); }
+    #[test]
+    fn t05() { assert_eq!(checker_one("dvszwmarrgswjxmb"), false); }
+}
+
+fn main() {
+    let buffer = fs::read_to_string("input.txt").expect("can't read `input` file");
+
+    println!("[1] nice string = {}", nice_count_one(&buffer));
+    println!("[2] nice string = {}", nice_count_two(&buffer));
 }
