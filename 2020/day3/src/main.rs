@@ -5,13 +5,13 @@ type Pos = (usize, usize);
 #[derive(Eq, PartialEq)]
 enum Field {
     Empty,
-    Tree
+    Tree,
 }
 
 struct Land {
     data: Vec<Vec<Field>>,
     width: usize,
-    height: usize
+    height: usize,
 }
 
 fn parse(data: String) -> Land {
@@ -23,7 +23,7 @@ fn parse(data: String) -> Land {
             block.push(match item {
                 '.' => Field::Empty,
                 '#' => Field::Tree,
-                _ => panic!("unknown item")
+                _ => panic!("unknown item"),
             });
         }
         land.push(block);
@@ -46,7 +46,7 @@ fn task_one(slope: Pos, land: &Land) -> usize {
         pos.0 += slope.0;
         pos.1 += slope.1;
     }
-    
+
     counter
 }
 
