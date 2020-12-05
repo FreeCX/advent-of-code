@@ -1,26 +1,21 @@
 extern crate rand;
 
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 use std::collections::HashMap;
-use std::fs::File;
-use std::io::Read;
-use rand::{thread_rng, Rng};
+use std::fs;
 
 #[derive(Debug)]
 struct Mapper {
     map: HashMap<String, u8>,
     tmp: Vec<(u8, u8, u32)>,
     route: Vec<Vec<u32>>,
-    counter: u8
+    counter: u8,
 }
 
 impl Mapper {
     fn new() -> Mapper {
-        Mapper { 
-            map: HashMap::new(),
-            tmp: Vec::new(),
-            route: Vec::new(),
-            counter: 0 
-        }
+        Mapper { map: HashMap::new(), tmp: Vec::new(), route: Vec::new(), counter: 0 }
     }
     fn add_pair(&mut self, a: &str, b: &str, v: u32) {
         let first = self.add(a);
@@ -55,19 +50,9 @@ fn get_len(map: &Mapper, route: &[u32]) -> u32 {
     result
 }
 
-fn print_matrix(map: &Mapper) {
-    for row in map.route.iter() {
-        for item in row {
-            print!("{:3}, ", item);
-        }
-        println!("");
-    }
-}
-
 fn main() {
-    let mut file = File::open("./input.txt").expect("can't open file");
-    let mut buffer = String::new();
-    file.read_to_string(&mut buffer).expect("can't read from file");
+    let buffer = fs::read_to_string("input").unwrap();
+
     let mut map = Mapper::new();
     for line in buffer.lines() {
         let raw: Vec<_> = line.split_whitespace().collect();
@@ -75,12 +60,14 @@ fn main() {
         map.add_pair(raw[0], raw[2], value);
     }
     map.precalc();
+
     let route_c = map.route.len() as u32;
     let mut route: Vec<_> = (0..route_c).collect();
     let mut minimum = get_len(&map, &route);
     let mut maximum = minimum;
+    let mut rnd = thread_rng();
     for _ in 0..100_000 {
-        thread_rng().shuffle(&mut route);
+        route.shuffle(&mut rnd);
         let now = get_len(&map, &route);
         if now < minimum {
             minimum = now;
@@ -89,5 +76,6 @@ fn main() {
             maximum = now;
         }
     }
-    println!("min = {}; max = {}", minimum, maximum);
+
+    println!("min = {}\nmax = {}", minimum, maximum);
 }

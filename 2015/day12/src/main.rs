@@ -18,7 +18,11 @@ fn json_sum_two(data: &json::JsonValue) -> i32 {
             let mut result = 0;
             for (_, v) in obj.iter() {
                 match v {
-                    json::JsonValue::Short(s) => if s == "red" { return 0; },
+                    json::JsonValue::Short(s) => {
+                        if s == "red" {
+                            return 0;
+                        }
+                    }
                     _ => result += json_sum_two(&v),
                 };
             }

@@ -18,7 +18,7 @@ def analyze_two(string):
 
 if __name__ == '__main__':
     r_one, r_two, l_one, l_two = [0] * 4
-    for line in open('input.txt'):
+    for line in open('input'):
         l_one += len(line)
         r_one += analyze_one(line)
         data = analyze_two(line)

@@ -1,6 +1,5 @@
 use std::collections::HashSet;
-use std::fs::File;
-use std::io::prelude::Read;
+use std::fs;
 
 #[derive(Hash, Eq, PartialEq, Clone, Copy)]
 struct Coords {
@@ -88,10 +87,8 @@ fn examples() {
 }
 
 fn main() {
-    let mut f = File::open("input.txt").expect("[error] can't open file!");
-    let mut buffer = String::new();
-    f.read_to_string(&mut buffer)
-        .expect("[error] can't read from file!");
+    let buffer = fs::read_to_string("input").unwrap();
+
     println!("part one = {}", house_counter(&buffer));
     println!("part two = {}", with_robot(&buffer));
 }

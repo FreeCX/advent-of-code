@@ -1,6 +1,5 @@
 use std::cmp;
-use std::io;
-use std::io::prelude::BufRead;
+use std::fs;
 
 fn max3(a: i32, b: i32, c: i32) -> i32 {
     cmp::max(cmp::max(a, b), c)
@@ -26,25 +25,16 @@ fn examples() {
 }
 
 fn main() {
+    let input = fs::read_to_string("input").unwrap();
+    
     let (mut sum_one, mut sum_two) = (0, 0);
-    let input = io::stdin();
-    for line in input.lock().lines() {
-        match line {
-            Ok(value) => {
-                let data: Vec<_> = value
-                    .split("x")
-                    .map(|x| x.parse::<i32>().unwrap())
-                    .collect();
-                let (l, w, h) = (data[0], data[1], data[2]);
-                sum_one += paper_one(l, w, h);
-                sum_two += paper_two(l, w, h);
-            }
-            Err(why) => {
-                println!("{}", why);
-                break;
-            }
-        };
+    for line in input.lines() {
+        let data: Vec<_> = line.split("x").map(|x| x.parse::<i32>().unwrap()).collect();
+        let (l, w, h) = (data[0], data[1], data[2]);
+        sum_one += paper_one(l, w, h);
+        sum_two += paper_two(l, w, h);
     }
-    println!("[old] sum = {}", sum_one);
-    println!("[new] sum = {}", sum_two);
+    
+    println!("[ first] sum = {}", sum_one);
+    println!("[second] sum = {}", sum_two);
 }

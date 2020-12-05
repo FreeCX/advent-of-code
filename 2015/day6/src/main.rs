@@ -1,20 +1,19 @@
-use std::fs::File;
-use std::io::Read;
-use std::str::FromStr;
+use std::fs;
 use std::num::ParseIntError;
+use std::str::FromStr;
 
 #[derive(Debug, Clone, Copy)]
 struct Pos {
     x: usize,
-    y: usize
+    y: usize,
 }
 
 #[derive(Debug)]
 struct R {
-   left: Pos,
-   right: Pos,
-   now: Pos,
-   start: bool
+    left: Pos,
+    right: Pos,
+    now: Pos,
+    start: bool,
 }
 
 #[derive(Debug)]
@@ -67,15 +66,14 @@ fn parse(cmd: &str) -> Command {
         ["turn", "on", a, "through", b] => Command::TurnOn(a.parse().unwrap(), b.parse().unwrap()),
         ["turn", "off", a, "through", b] => Command::TurnOff(a.parse().unwrap(), b.parse().unwrap()),
         ["toggle", a, "through", b] => Command::Toggle(a.parse().unwrap(), b.parse().unwrap()),
-        _ => unreachable!()
+        _ => unreachable!(),
     }
 }
 
 fn main() {
     let mut grid = [[(false, 0); 1000]; 1000];
-    let mut file = File::open("input.txt").expect("can't open file");
-    let mut buffer = String::new();
-    file.read_to_string(&mut buffer).expect("can't read file");
+    let buffer = fs::read_to_string("input").unwrap();
+
     for item in buffer.lines() {
         match parse(&item) {
             Command::TurnOn(a, b) => {
@@ -102,9 +100,10 @@ fn main() {
             }
         }
     }
+
     let mut count = 0;
     let mut total_brightness = 0;
-    for row in grid.into_iter() {
+    for row in grid.iter() {
         for item in row.into_iter() {
             if item.0 {
                 count += 1;
@@ -112,6 +111,7 @@ fn main() {
             total_brightness += item.1;
         }
     }
+
     println!("count = {}", count);
     println!("total brightness = {}", total_brightness);
 }

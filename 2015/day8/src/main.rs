@@ -1,5 +1,4 @@
-use std::io::Read;
-use std::fs::File;
+use std::fs;
 
 fn analyze(string: &str) -> usize {
     let tmp = string[1..string.len()-1].replace("\\\"", "\"")
@@ -33,15 +32,15 @@ fn main() {
     // all-string = 6310
     //  in-memory = 4977     <--- find bug (returned 4968)
     //     result = 1333
-    let mut file = File::open("input.txt").expect("can't open file");
-    let mut buffer = String::new();
-    file.read_to_string(&mut buffer).expect("can't read from file");
+    let buffer = fs::read_to_string("input").unwrap();
+
     let mut result = 0;
     let mut sum_len = 0;
     for line in buffer.lines() {
         sum_len += line.len();
         result += analyze(&line);
     }
+
     println!("all-string = {}", sum_len);
     println!(" in-memory = {}", result);
     println!("    result = {}", sum_len - result);

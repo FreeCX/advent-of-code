@@ -43,19 +43,29 @@ mod tests {
     use crate::checker_one;
 
     #[test]
-    fn t01() { assert_eq!(checker_one("ugknbfddgicrmopn"), true); }
+    fn t01() {
+        assert_eq!(checker_one("ugknbfddgicrmopn"), true);
+    }
     #[test]
-    fn t02() { assert_eq!(checker_one("aaa"), true); }
+    fn t02() {
+        assert_eq!(checker_one("aaa"), true);
+    }
     #[test]
-    fn t03() { assert_eq!(checker_one("jchzalrnumimnmhp"), false); }
+    fn t03() {
+        assert_eq!(checker_one("jchzalrnumimnmhp"), false);
+    }
     #[test]
-    fn t04() { assert_eq!(checker_one("haegwjzuvuyypxyu"), false); }
+    fn t04() {
+        assert_eq!(checker_one("haegwjzuvuyypxyu"), false);
+    }
     #[test]
-    fn t05() { assert_eq!(checker_one("dvszwmarrgswjxmb"), false); }
+    fn t05() {
+        assert_eq!(checker_one("dvszwmarrgswjxmb"), false);
+    }
 }
 
 fn main() {
-    let buffer = fs::read_to_string("input.txt").expect("can't read `input` file");
+    let buffer = fs::read_to_string("input").expect("can't read `input` file");
 
     println!("[1] nice string = {}", nice_count_one(&buffer));
     println!("[2] nice string = {}", nice_count_two(&buffer));

@@ -1,9 +1,3 @@
-#![allow(dead_code, unused_variables)]
-
-fn to_str(data: Vec<u8>) -> String {
-    unsafe { String::from_utf8_unchecked(data) }
-}
-
 fn increment(mut data: Vec<u8>) -> Vec<u8> {
     let (start, stop) = ('a' as u8, 'z' as u8);
     let range = stop - start + 1;
@@ -69,7 +63,7 @@ fn next_password<'a>(input: &'a str) -> String {
     while !(rule_one(&repr) && rule_two(&repr) && rule_three(&repr)) {
         repr = increment(repr);
     }
-    to_str(repr)
+    String::from_utf8(repr).unwrap()
 }
 
 #[test]
@@ -78,7 +72,7 @@ fn one_k_iter() {
     for _ in 0..1024 {
         start = increment(start);
     }
-    assert_eq!("abnk", to_str(start));
+    assert_eq!("abnk", String::from_utf8(start).unwrap());
 }
 
 #[test]
