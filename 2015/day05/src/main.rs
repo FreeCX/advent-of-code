@@ -1,5 +1,3 @@
-use std::fs;
-
 fn checker_one<'a>(line: &'a str) -> bool {
     fn rule_two<'a>(line: &'a str) -> bool {
         let mut last_char = line.chars().nth(0).unwrap();
@@ -65,7 +63,7 @@ mod tests {
 }
 
 fn main() {
-    let buffer = fs::read_to_string("input").expect("can't read `input` file");
+    let buffer = include_str!("../input");
 
     println!("[1] nice string = {}", nice_count_one(&buffer));
     println!("[2] nice string = {}", nice_count_two(&buffer));

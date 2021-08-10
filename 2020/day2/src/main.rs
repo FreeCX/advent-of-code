@@ -1,5 +1,3 @@
-use std::fs;
-
 struct Rule {
     left_range: usize,
     right_range: usize,
@@ -11,7 +9,12 @@ fn parse(line: &str) -> Rule {
     let parts: Vec<_> = line.split(" ").collect();
     let range: Vec<usize> = parts[0].split("-").map(|x| x.parse().unwrap()).collect();
     let symbol = parts[1].chars().nth(0).unwrap();
-    Rule { left_range: range[0], right_range: range[1], symbol, password: parts[2].to_string() }
+    Rule {
+        left_range: range[0],
+        right_range: range[1],
+        symbol,
+        password: parts[2].to_string(),
+    }
 }
 
 fn rule_one_check(rule: &Rule) -> bool {
@@ -30,7 +33,7 @@ fn rule_two_check(rule: &Rule) -> bool {
 }
 
 fn main() {
-    let passwords = fs::read_to_string("input").unwrap();
+    let passwords = include_str!("../input");
     let mut first_counter = 0;
     let mut second_counter = 0;
 

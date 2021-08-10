@@ -1,8 +1,7 @@
-use std::fs;
-
 fn analyze(string: &str) -> usize {
-    let tmp = string[1..string.len()-1].replace("\\\"", "\"")
-                                       .replace("\\\\", "\\");
+    let tmp = string[1..string.len() - 1]
+        .replace("\\\"", "\"")
+        .replace("\\\\", "\\");
     let mut result = 0;
     let mut first_flag = false;
     for f in tmp.split("\\x") {
@@ -32,7 +31,7 @@ fn main() {
     // all-string = 6310
     //  in-memory = 4977     <--- find bug (returned 4968)
     //     result = 1333
-    let buffer = fs::read_to_string("input").unwrap();
+    let buffer = include_str!("../input");
 
     let mut result = 0;
     let mut sum_len = 0;

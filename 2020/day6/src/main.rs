@@ -1,9 +1,8 @@
 use std::collections::HashSet;
-use std::fs;
 
 type Questions = HashSet<char>;
 
-fn parse(data: String) -> Vec<Vec<Questions>> {
+fn parse(data: &str) -> Vec<Vec<Questions>> {
     let mut result = Vec::new();
     for group in data.split("\n\n") {
         let mut question_group = Vec::new();
@@ -53,7 +52,7 @@ mod tests {
 
     #[test]
     fn example_one() {
-        let input = String::from("abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb");
+        let input = "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb";
         let data = parse(input);
         let result = task_one(&data);
         assert_eq!(result, 11);
@@ -61,7 +60,7 @@ mod tests {
 
     #[test]
     fn example_two() {
-        let input = String::from("abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb");
+        let input = "abc\n\na\nb\nc\n\nab\nac\n\na\na\na\na\n\nb";
         let data = parse(input);
         let result = task_two(&data);
         assert_eq!(result, 6);
@@ -69,8 +68,8 @@ mod tests {
 }
 
 fn main() {
-    let data = parse(fs::read_to_string("input").unwrap().trim().to_string());
-    
+    let data = parse(include_str!("../input").trim());
+
     println!(" first = {}", task_one(&data));
     println!("second = {}", task_two(&data));
 }

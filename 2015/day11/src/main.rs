@@ -2,7 +2,7 @@ fn increment(mut data: Vec<u8>) -> Vec<u8> {
     let (start, stop) = ('a' as u8, 'z' as u8);
     let range = stop - start + 1;
     let mut carry = 1;
-    for c in data.iter_mut().rev(){
+    for c in data.iter_mut().rev() {
         let next = *c - start + carry;
         *c = next % range + start;
         carry = if next == range { 1 } else { 0 };
@@ -45,7 +45,9 @@ fn rule_two(data: &Vec<u8>) -> bool {
 fn rule_three(data: &Vec<u8>) -> bool {
     let mut pairs_count = 0;
     let mut data_str: String = data.iter().map(|&x| x as char).collect();
-    let pairs: Vec<String> = ('a' as u8 ..= 'z' as u8).map(|x| format!("{0}{0}", x as char)).collect();
+    let pairs: Vec<String> = ('a' as u8..='z' as u8)
+        .map(|x| format!("{0}{0}", x as char))
+        .collect();
     for pair in pairs {
         if data_str.contains(&pair) {
             pairs_count += 1;

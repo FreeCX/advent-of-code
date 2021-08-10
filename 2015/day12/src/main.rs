@@ -1,7 +1,5 @@
 extern crate json;
 
-use std::fs;
-
 fn json_sum_one(data: &json::JsonValue) -> i32 {
     match data {
         json::JsonValue::Number(_) => data.as_i32().unwrap(),
@@ -34,7 +32,7 @@ fn json_sum_two(data: &json::JsonValue) -> i32 {
 }
 
 fn main() {
-    let input = fs::read_to_string("input").expect("can't read `input` file");
+    let input = include_str!("../input");
     let data = json::parse(&input).unwrap();
     println!("sum_one = {}", json_sum_one(&data));
     println!("sum_two = {}", json_sum_two(&data));

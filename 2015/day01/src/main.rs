@@ -1,5 +1,3 @@
-use std::fs;
-
 fn floor(string: &str) -> (i32, Option<usize>) {
     let mut floor: i32 = 0;
     let mut index: usize = 1;
@@ -30,6 +28,6 @@ fn examples() {
 }
 
 fn main() {
-    let buffer = fs::read_to_string("input").unwrap();
+    let buffer = include_str!("../input");
     println!("(floor, problem_at) = {:?}", floor(&buffer));
 }

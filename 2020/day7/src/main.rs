@@ -55,7 +55,7 @@ fn contain(from: &str, what: &str, bags: &BagOfBugs) -> bool {
             }
             false
         }
-        None => false
+        None => false,
     }
 }
 
@@ -71,7 +71,7 @@ fn inner(name: &str, bags: &BagOfBugs) -> usize {
             }
             result
         }
-        None => 0
+        None => 0,
     }
 }
 

@@ -1,5 +1,4 @@
 use std::cmp;
-use std::fs;
 
 fn max3(a: i32, b: i32, c: i32) -> i32 {
     cmp::max(cmp::max(a, b), c)
@@ -25,8 +24,8 @@ fn examples() {
 }
 
 fn main() {
-    let input = fs::read_to_string("input").unwrap();
-    
+    let input = include_str!("../input");
+
     let (mut sum_one, mut sum_two) = (0, 0);
     for line in input.lines() {
         let data: Vec<_> = line.split("x").map(|x| x.parse::<i32>().unwrap()).collect();
@@ -34,7 +33,7 @@ fn main() {
         sum_one += paper_one(l, w, h);
         sum_two += paper_two(l, w, h);
     }
-    
+
     println!("[ first] sum = {}", sum_one);
     println!("[second] sum = {}", sum_two);
 }

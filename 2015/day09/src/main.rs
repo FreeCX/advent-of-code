@@ -3,7 +3,6 @@ extern crate rand;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 use std::collections::HashMap;
-use std::fs;
 
 #[derive(Debug)]
 struct Mapper {
@@ -15,7 +14,12 @@ struct Mapper {
 
 impl Mapper {
     fn new() -> Mapper {
-        Mapper { map: HashMap::new(), tmp: Vec::new(), route: Vec::new(), counter: 0 }
+        Mapper {
+            map: HashMap::new(),
+            tmp: Vec::new(),
+            route: Vec::new(),
+            counter: 0,
+        }
     }
     fn add_pair(&mut self, a: &str, b: &str, v: u32) {
         let first = self.add(a);
@@ -51,7 +55,7 @@ fn get_len(map: &Mapper, route: &[u32]) -> u32 {
 }
 
 fn main() {
-    let buffer = fs::read_to_string("input").unwrap();
+    let buffer = include_str!("../input");
 
     let mut map = Mapper::new();
     for line in buffer.lines() {

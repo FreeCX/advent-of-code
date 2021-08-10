@@ -1,14 +1,12 @@
-use std::fs;
 use std::num::ParseIntError;
 use std::str::FromStr;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Clone, Copy)]
 struct Pos {
     x: usize,
     y: usize,
 }
 
-#[derive(Debug)]
 struct R {
     left: Pos,
     right: Pos,
@@ -16,7 +14,6 @@ struct R {
     start: bool,
 }
 
-#[derive(Debug)]
 enum Command {
     TurnOn(Pos, Pos),
     Toggle(Pos, Pos),
@@ -56,7 +53,12 @@ impl Iterator for R {
 
 impl R {
     fn new(a: Pos, b: Pos) -> R {
-        R { left: a, right: b, now: a, start: true }
+        R {
+            left: a,
+            right: b,
+            now: a,
+            start: true,
+        }
     }
 }
 
@@ -64,7 +66,9 @@ fn parse(cmd: &str) -> Command {
     let raw: Vec<_> = cmd.split(' ').collect();
     match raw[..] {
         ["turn", "on", a, "through", b] => Command::TurnOn(a.parse().unwrap(), b.parse().unwrap()),
-        ["turn", "off", a, "through", b] => Command::TurnOff(a.parse().unwrap(), b.parse().unwrap()),
+        ["turn", "off", a, "through", b] => {
+            Command::TurnOff(a.parse().unwrap(), b.parse().unwrap())
+        }
         ["toggle", a, "through", b] => Command::Toggle(a.parse().unwrap(), b.parse().unwrap()),
         _ => unreachable!(),
     }
@@ -72,7 +76,7 @@ fn parse(cmd: &str) -> Command {
 
 fn main() {
     let mut grid = [[(false, 0); 1000]; 1000];
-    let buffer = fs::read_to_string("input").unwrap();
+    let buffer = include_str!("../input");
 
     for item in buffer.lines() {
         match parse(&item) {

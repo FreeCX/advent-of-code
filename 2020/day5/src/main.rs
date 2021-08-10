@@ -1,5 +1,3 @@
-use std::fs;
-
 pub struct Seat {
     pub row: u8,
     pub col: u8,
@@ -88,7 +86,7 @@ mod tests {
 }
 
 fn main() {
-    let data = fs::read_to_string("input").unwrap();
+    let data = include_str!("../input");
     let tickets: Vec<_> = data.lines().collect();
 
     println!(" first = {}", task_one(&tickets));

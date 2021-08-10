@@ -1,5 +1,3 @@
-use std::fs;
-
 type Pos = (usize, usize);
 
 #[derive(Eq, PartialEq)]
@@ -14,7 +12,7 @@ struct Land {
     height: usize,
 }
 
-fn parse(data: String) -> Land {
+fn parse(data: &str) -> Land {
     let mut land = Vec::new();
 
     for line in data.lines() {
@@ -32,7 +30,11 @@ fn parse(data: String) -> Land {
     let width = land[0].len();
     let height = land.len();
 
-    Land { data: land, width, height }
+    Land {
+        data: land,
+        width,
+        height,
+    }
 }
 
 fn task_one(slope: Pos, land: &Land) -> usize {
@@ -61,8 +63,7 @@ fn task_two(land: &Land) -> usize {
 }
 
 fn main() {
-    let data = fs::read_to_string("input").unwrap();
-    let land = parse(data);
+    let land = parse(include_str!("../input"));
 
     println!(" first = {}", task_one((3, 1), &land));
     println!("second = {}", task_two(&land));

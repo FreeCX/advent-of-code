@@ -1,7 +1,3 @@
-#![allow(dead_code, unused_variables)]
-use std::fs;
-
-#[derive(Debug)]
 enum Unit {
     Centimer,
     Inch,
@@ -9,7 +5,6 @@ enum Unit {
 
 type Height = (u16, Unit);
 
-#[derive(Debug)]
 struct Id {
     byr: Option<u16>,
     iyr: Option<u16>,
@@ -23,7 +18,16 @@ struct Id {
 
 impl Id {
     fn new() -> Id {
-        Id { byr: None, iyr: None, eyr: None, hgt: None, hcl: None, ecl: None, pid: None, cid: None }
+        Id {
+            byr: None,
+            iyr: None,
+            eyr: None,
+            hgt: None,
+            hcl: None,
+            ecl: None,
+            pid: None,
+            cid: None,
+        }
     }
 
     fn set(&mut self, data: &str) {
@@ -109,8 +113,10 @@ fn validate_color(color: &Option<String>) -> bool {
 
 fn validate_eye(eye: &Option<String>) -> bool {
     if eye.is_some() {
-        let colors: Vec<String> =
-            vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].iter().map(|&x| x.to_owned()).collect();
+        let colors: Vec<String> = vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
+            .iter()
+            .map(|&x| x.to_owned())
+            .collect();
         let v = eye.clone().unwrap();
         colors.contains(&v)
     } else {
@@ -133,7 +139,7 @@ fn validate_id(id: &Option<String>) -> bool {
     true
 }
 
-fn parse(data: String) -> Vec<Id> {
+fn parse(data: &str) -> Vec<Id> {
     let mut result = Vec::new();
 
     for block in data.split("\n\n") {
@@ -175,7 +181,7 @@ fn task_two(ids: &Vec<Id>) -> u32 {
 }
 
 fn main() {
-    let ids = parse(fs::read_to_string("input").unwrap());
+    let ids = parse(include_str!("../input"));
 
     println!(" first = {}", task_one(&ids));
     println!("second = {}", task_two(&ids));

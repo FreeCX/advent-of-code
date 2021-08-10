@@ -1,5 +1,4 @@
 use std::collections::HashSet;
-use std::fs;
 
 #[derive(Hash, Eq, PartialEq, Clone, Copy)]
 struct Coords {
@@ -87,7 +86,7 @@ fn examples() {
 }
 
 fn main() {
-    let buffer = fs::read_to_string("input").unwrap();
+    let buffer = include_str!("../input");
 
     println!("part one = {}", house_counter(&buffer));
     println!("part two = {}", with_robot(&buffer));

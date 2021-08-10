@@ -53,6 +53,11 @@ fn six_digit() {
 fn main() {
     let input = "3113322113";
     for iter in &[40_usize, 50_usize] {
-        println!("input = {}; iter = {}; size = {}", input, iter, look_and_say(input, *iter));
+        println!(
+            "input = {}; iter = {}; size = {}",
+            input,
+            iter,
+            look_and_say(input, *iter)
+        );
     }
 }
