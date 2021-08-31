@@ -18,16 +18,7 @@ struct Id {
 
 impl Id {
     fn new() -> Id {
-        Id {
-            byr: None,
-            iyr: None,
-            eyr: None,
-            hgt: None,
-            hcl: None,
-            ecl: None,
-            pid: None,
-            cid: None,
-        }
+        Id { byr: None, iyr: None, eyr: None, hgt: None, hcl: None, ecl: None, pid: None, cid: None }
     }
 
     fn set(&mut self, data: &str) {
@@ -113,10 +104,8 @@ fn validate_color(color: &Option<String>) -> bool {
 
 fn validate_eye(eye: &Option<String>) -> bool {
     if eye.is_some() {
-        let colors: Vec<String> = vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-            .iter()
-            .map(|&x| x.to_owned())
-            .collect();
+        let colors: Vec<String> =
+            vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].iter().map(|&x| x.to_owned()).collect();
         let v = eye.clone().unwrap();
         colors.contains(&v)
     } else {

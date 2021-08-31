@@ -17,11 +17,7 @@ struct Emulator {
 
 impl Emulator {
     fn new() -> Emulator {
-        Emulator {
-            acc: 0,
-            ip: 0,
-            code: Vec::new(),
-        }
+        Emulator { acc: 0, ip: 0, code: Vec::new() }
     }
 
     fn load(&mut self, code: &str) {
@@ -146,8 +142,7 @@ fn task_two(code: &str) -> i16 {
 mod tests {
     use crate::*;
 
-    const APP: &'static str =
-        "nop +0\nacc +1\njmp +4\nacc +3\njmp -3\nacc -99\nacc +1\njmp -4\nacc +6";
+    const APP: &'static str = "nop +0\nacc +1\njmp +4\nacc +3\njmp -3\nacc -99\nacc +1\njmp -4\nacc +6";
 
     #[test]
     fn example_one() {

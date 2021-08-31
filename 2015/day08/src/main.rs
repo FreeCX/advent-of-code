@@ -1,7 +1,5 @@
 fn analyze(string: &str) -> usize {
-    let tmp = string[1..string.len() - 1]
-        .replace("\\\"", "\"")
-        .replace("\\\\", "\\");
+    let tmp = string[1..string.len() - 1].replace("\\\"", "\"").replace("\\\\", "\\");
     let mut result = 0;
     let mut first_flag = false;
     for f in tmp.split("\\x") {

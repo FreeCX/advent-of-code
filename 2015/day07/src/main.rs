@@ -39,12 +39,7 @@ fn parse(s: &str) -> Token {
     let data: Vec<_> = s.split_whitespace().map(|x| x.trim()).collect();
     match &data[..] {
         // a OP b -> v
-        [a, op, b, "->", variable] => Token::Expression(
-            get_op(op),
-            a.to_string(),
-            b.to_string(),
-            variable.to_string(),
-        ),
+        [a, op, b, "->", variable] => Token::Expression(get_op(op), a.to_string(), b.to_string(), variable.to_string()),
         // NOT a -> v
         ["NOT", a, "->", variable] => Token::Inverter(a.to_string(), variable.to_string()),
         // a -> v
@@ -73,12 +68,8 @@ fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
                 },
             };
             match operator {
-                Operator::AND => vars
-                    .get(&b)
-                    .and_then(|b_value| Some(Token::Result(var, a_value & b_value))),
-                Operator::OR => vars
-                    .get(&b)
-                    .and_then(|b_value| Some(Token::Result(var, a_value | b_value))),
+                Operator::AND => vars.get(&b).and_then(|b_value| Some(Token::Result(var, a_value & b_value))),
+                Operator::OR => vars.get(&b).and_then(|b_value| Some(Token::Result(var, a_value | b_value))),
                 Operator::LSHIFT => {
                     let b_value = b.parse::<u16>().unwrap();
                     Some(Token::Result(var, a_value << b_value))
@@ -90,9 +81,7 @@ fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
                 _ => None,
             }
         }
-        Token::Inverter(a, var) => vars
-            .get(&a)
-            .and_then(|a_value| Some(Token::Result(var, !a_value))),
+        Token::Inverter(a, var) => vars.get(&a).and_then(|a_value| Some(Token::Result(var, !a_value))),
         _ => None,
     }
 }

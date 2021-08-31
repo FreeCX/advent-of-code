@@ -14,12 +14,7 @@ struct Mapper {
 
 impl Mapper {
     fn new() -> Mapper {
-        Mapper {
-            map: HashMap::new(),
-            tmp: Vec::new(),
-            route: Vec::new(),
-            counter: 0,
-        }
+        Mapper { map: HashMap::new(), tmp: Vec::new(), route: Vec::new(), counter: 0 }
     }
     fn add_pair(&mut self, a: &str, b: &str, v: u32) {
         let first = self.add(a);

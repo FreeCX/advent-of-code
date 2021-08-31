@@ -45,9 +45,7 @@ fn rule_two(data: &Vec<u8>) -> bool {
 fn rule_three(data: &Vec<u8>) -> bool {
     let mut pairs_count = 0;
     let mut data_str: String = data.iter().map(|&x| x as char).collect();
-    let pairs: Vec<String> = ('a' as u8..='z' as u8)
-        .map(|x| format!("{0}{0}", x as char))
-        .collect();
+    let pairs: Vec<String> = ('a' as u8..='z' as u8).map(|x| format!("{0}{0}", x as char)).collect();
     for pair in pairs {
         if data_str.contains(&pair) {
             pairs_count += 1;

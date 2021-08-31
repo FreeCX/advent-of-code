@@ -30,11 +30,7 @@ fn parse(data: &str) -> Land {
     let width = land[0].len();
     let height = land.len();
 
-    Land {
-        data: land,
-        width,
-        height,
-    }
+    Land { data: land, width, height }
 }
 
 fn task_one(slope: Pos, land: &Land) -> usize {

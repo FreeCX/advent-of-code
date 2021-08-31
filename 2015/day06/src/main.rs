@@ -53,12 +53,7 @@ impl Iterator for R {
 
 impl R {
     fn new(a: Pos, b: Pos) -> R {
-        R {
-            left: a,
-            right: b,
-            now: a,
-            start: true,
-        }
+        R { left: a, right: b, now: a, start: true }
     }
 }
 
@@ -66,9 +61,7 @@ fn parse(cmd: &str) -> Command {
     let raw: Vec<_> = cmd.split(' ').collect();
     match raw[..] {
         ["turn", "on", a, "through", b] => Command::TurnOn(a.parse().unwrap(), b.parse().unwrap()),
-        ["turn", "off", a, "through", b] => {
-            Command::TurnOff(a.parse().unwrap(), b.parse().unwrap())
-        }
+        ["turn", "off", a, "through", b] => Command::TurnOff(a.parse().unwrap(), b.parse().unwrap()),
         ["toggle", a, "through", b] => Command::Toggle(a.parse().unwrap(), b.parse().unwrap()),
         _ => unreachable!(),
     }
