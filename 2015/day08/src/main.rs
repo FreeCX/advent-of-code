@@ -1,3 +1,5 @@
+// TODO: fix
+
 fn analyze(string: &str) -> usize {
     let tmp = string[1..string.len() - 1].replace("\\\"", "\"").replace("\\\\", "\\");
     let mut result = 0;
@@ -29,13 +31,13 @@ fn main() {
     // all-string = 6310
     //  in-memory = 4977     <--- find bug (returned 4968)
     //     result = 1333
-    let buffer = include_str!("../input");
+    let buffer = include_str!("../data/input");
 
     let mut result = 0;
     let mut sum_len = 0;
     for line in buffer.lines() {
         sum_len += line.len();
-        result += analyze(&line);
+        result += analyze(line);
     }
 
     println!("all-string = {}", sum_len);

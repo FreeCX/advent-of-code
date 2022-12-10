@@ -4,7 +4,7 @@ fn json_sum_one(data: &json::JsonValue) -> i32 {
     match data {
         json::JsonValue::Number(_) => data.as_i32().unwrap(),
         json::JsonValue::Object(obj) => obj.iter().map(|(_, v)| json_sum_one(&v)).sum(),
-        json::JsonValue::Array(array) => array.iter().map(|x| json_sum_one(x)).sum(),
+        json::JsonValue::Array(array) => array.iter().map(json_sum_one).sum(),
         _ => 0,
     }
 }
@@ -21,19 +21,19 @@ fn json_sum_two(data: &json::JsonValue) -> i32 {
                             return 0;
                         }
                     }
-                    _ => result += json_sum_two(&v),
+                    _ => result += json_sum_two(v),
                 };
             }
             result
         }
-        json::JsonValue::Array(array) => array.iter().map(|x| json_sum_two(x)).sum(),
+        json::JsonValue::Array(array) => array.iter().map(json_sum_two).sum(),
         _ => 0,
     }
 }
 
 fn main() {
-    let input = include_str!("../input");
-    let data = json::parse(&input).unwrap();
+    let input = include_str!("../data/input");
+    let data = json::parse(input).unwrap();
     println!("sum_one = {}", json_sum_one(&data));
     println!("sum_two = {}", json_sum_two(&data));
 }

@@ -1,5 +1,6 @@
 use std::collections::BTreeMap;
 
+#[allow(clippy::upper_case_acronyms)]
 #[derive(Clone, Copy)]
 enum Operator {
     AND,
@@ -59,7 +60,7 @@ fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
         },
         Token::Expression(operator, a, b, var) => {
             let a_value = match vars.get(&a) {
-                Some(value) => value.clone(),
+                Some(value) => *value,
                 None => match a.parse() {
                     Ok(value) => value,
                     Err(_) => {
@@ -68,8 +69,8 @@ fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
                 },
             };
             match operator {
-                Operator::AND => vars.get(&b).and_then(|b_value| Some(Token::Result(var, a_value & b_value))),
-                Operator::OR => vars.get(&b).and_then(|b_value| Some(Token::Result(var, a_value | b_value))),
+                Operator::AND => vars.get(&b).map(|b_value| Token::Result(var, a_value & b_value)),
+                Operator::OR => vars.get(&b).map(|b_value| Token::Result(var, a_value | b_value)),
                 Operator::LSHIFT => {
                     let b_value = b.parse::<u16>().unwrap();
                     Some(Token::Result(var, a_value << b_value))
@@ -81,16 +82,20 @@ fn execute(expr: Token, vars: &BTreeMap<String, u16>) -> Option<Token> {
                 _ => None,
             }
         }
-        Token::Inverter(a, var) => vars.get(&a).and_then(|a_value| Some(Token::Result(var, !a_value))),
+        Token::Inverter(a, var) => vars.get(&a).map(|a_value| Token::Result(var, !a_value)),
         _ => None,
     }
 }
+
+// TODO
+#[cfg(test)]
+mod tests {}
 
 fn main() {
     let mut vars: BTreeMap<String, u16> = BTreeMap::new();
     let mut stack: Vec<Token> = Vec::new();
     let mut all_expr: Vec<Token> = Vec::new();
-    let buffer = include_str!("../input");
+    let buffer = include_str!("../data/input");
 
     // подумать насчёт многопараметровой сортировки
     // 1. сортировка по выходному параметру
@@ -112,7 +117,7 @@ fn main() {
         };
     }
 
-    while !vars.get("a").is_some() {
+    while vars.get("a").is_none() {
         let new_stack = stack.clone();
         stack.clear();
         for expr in new_stack {

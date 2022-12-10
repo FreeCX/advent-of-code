@@ -22,16 +22,19 @@ enum Command {
 
 impl FromStr for Pos {
     type Err = ParseIntError;
+
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let raw: Vec<_> = s.split(',').collect();
         let x = raw[0].parse()?;
         let y = raw[1].parse()?;
-        Ok(Pos { x: x, y: y })
+        Ok(Pos { x, y })
     }
 }
 
 impl Iterator for R {
     type Item = Pos;
+
+    // TODO: отрефакторить код
     fn next(&mut self) -> Option<Self::Item> {
         if !self.start {
             if self.now.x >= self.right.x {
@@ -69,10 +72,10 @@ fn parse(cmd: &str) -> Command {
 
 fn main() {
     let mut grid = [[(false, 0); 1000]; 1000];
-    let buffer = include_str!("../input");
+    let buffer = include_str!("../data/input");
 
     for item in buffer.lines() {
-        match parse(&item) {
+        match parse(item) {
             Command::TurnOn(a, b) => {
                 for p in R::new(a, b) {
                     grid[p.x][p.y].0 = true;
@@ -100,8 +103,8 @@ fn main() {
 
     let mut count = 0;
     let mut total_brightness = 0;
-    for row in grid.iter() {
-        for item in row.into_iter() {
+    for row in grid {
+        for item in row {
             if item.0 {
                 count += 1;
             }

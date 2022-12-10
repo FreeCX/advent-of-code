@@ -16,11 +16,13 @@ impl Mapper {
     fn new() -> Mapper {
         Mapper { map: HashMap::new(), tmp: Vec::new(), route: Vec::new(), counter: 0 }
     }
+
     fn add_pair(&mut self, a: &str, b: &str, v: u32) {
         let first = self.add(a);
         let second = self.add(b);
         self.tmp.push((first, second, v));
     }
+
     fn add(&mut self, value: &str) -> u8 {
         if !self.map.contains_key(value) {
             self.map.insert(value.to_owned(), self.counter);
@@ -30,6 +32,7 @@ impl Mapper {
             *self.map.get(value).unwrap()
         }
     }
+
     fn precalc(&mut self) {
         let size: usize = self.map.len();
         self.route = vec![vec![0; size]; size];
@@ -50,7 +53,7 @@ fn get_len(map: &Mapper, route: &[u32]) -> u32 {
 }
 
 fn main() {
-    let buffer = include_str!("../input");
+    let buffer = include_str!("../data/input");
 
     let mut map = Mapper::new();
     for line in buffer.lines() {

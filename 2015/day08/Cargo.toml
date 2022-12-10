@@ -1,6 +1,5 @@
 [package]
-authors = ["Alexey Golubev <dr.freecx@gmail.com>"]
 name = "day8"
 version = "0.1.0"
-
-[dependencies]
+authors = ["Alexey Golubev <dr.freecx@gmail.com>"]
+edition = "2021"

@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod tests;
+
 fn floor(string: &str) -> (i32, Option<usize>) {
     let mut floor: i32 = 0;
     let mut index: usize = 1;
@@ -18,16 +21,7 @@ fn floor(string: &str) -> (i32, Option<usize>) {
     (floor, problem_position)
 }
 
-#[test]
-fn examples() {
-    assert!(floor("(())") == (0, None) && floor("()()") == (0, None));
-    assert!(floor("(((") == (3, None) && floor("(()(()(") == (3, None));
-    assert!(floor("))(((((") == (3, Some(1)));
-    assert!(floor("())") == (-1, Some(3)) && floor("))(") == (-1, Some(1)));
-    assert!(floor(")))") == (-3, Some(1)) && floor(")())())") == (-3, Some(1)));
-}
-
 fn main() {
-    let buffer = include_str!("../input");
+    let buffer = include_str!("../data/input");
     println!("(floor, problem_at) = {:?}", floor(&buffer));
 }

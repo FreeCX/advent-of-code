@@ -1,5 +1,8 @@
 use std::collections::HashSet;
 
+#[cfg(test)]
+mod tests;
+
 #[derive(Hash, Eq, PartialEq, Clone, Copy)]
 struct Coords {
     x: i32,
@@ -8,14 +11,14 @@ struct Coords {
 
 impl Coords {
     fn new(x: i32, y: i32) -> Coords {
-        Coords { x: x, y: y }
+        Coords { x, y }
     }
 }
 
 fn house_counter(string: &str) -> usize {
     let mut set = HashSet::new();
     let mut pos = Coords::new(0, 0);
-    if string.len() > 0 {
+    if !string.is_empty() {
         set.insert(pos);
     } else {
         return 0;
@@ -44,7 +47,7 @@ fn with_robot(string: &str) -> usize {
     let mut s2 = HashSet::new();
     let mut p1 = Coords::new(0, 0);
     let mut p2 = Coords::new(0, 0);
-    if string.len() > 0 {
+    if !string.is_empty() {
         s1.insert(p1);
         s2.insert(p2);
     } else {
@@ -53,14 +56,14 @@ fn with_robot(string: &str) -> usize {
     let mut seq = string.chars();
     loop {
         let (a, b) = (seq.next(), seq.next());
-        if a == None {
+        if a.is_none() {
             break;
         }
         let (x, y) = get_move(a.unwrap());
         p1.x += x as i32;
         p1.y += y as i32;
         s1.insert(p1);
-        if b == None {
+        if b.is_none() {
             continue;
         }
         let (x, y) = get_move(b.unwrap());
@@ -72,22 +75,9 @@ fn with_robot(string: &str) -> usize {
     result.len()
 }
 
-#[test]
-fn examples() {
-    let one_str = "^v";
-    let two_str = "^>v<";
-    let thr_str = "^v^v^v^v^v";
-    assert!(house_counter(one_str) == 2);
-    assert!(house_counter(two_str) == 4);
-    assert!(house_counter(thr_str) == 2);
-    assert!(with_robot(one_str) == 3);
-    assert!(with_robot(two_str) == 3);
-    assert!(with_robot(thr_str) == 11);
-}
-
 fn main() {
-    let buffer = include_str!("../input");
+    let buffer = include_str!("../data/input");
 
-    println!("part one = {}", house_counter(&buffer));
-    println!("part two = {}", with_robot(&buffer));
+    println!("part one = {}", house_counter(buffer));
+    println!("part two = {}", with_robot(buffer));
 }
