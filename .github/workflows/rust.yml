@@ -20,3 +20,6 @@ jobs:
     - name: Run tests 2020
       working-directory: ./2020
       run: cargo test --verbose
+    - name: Run tests 2022
+      working-directory: ./2022
+      run: cargo test --verbose
