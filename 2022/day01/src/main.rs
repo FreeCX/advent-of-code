@@ -1,5 +1,8 @@
-pub mod part_one;
-pub mod part_two;
+mod part_one;
+mod part_two;
+
+#[cfg(test)]
+mod tests;
 
 fn main() {
     let input = include_str!("../data/input");
