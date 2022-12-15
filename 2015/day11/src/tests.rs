@@ -2,7 +2,7 @@ use crate::*;
 
 #[test]
 fn one_k_iter() {
-    let mut start: Vec<u8> = vec!['a' as u8; 4];
+    let mut start: Vec<u8> = vec![b'a'; 4];
     for _ in 0..1024 {
         start = increment(start);
     }

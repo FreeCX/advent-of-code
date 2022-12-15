@@ -1,8 +1,9 @@
 extern crate rand;
 
+use std::collections::HashMap;
+
 use rand::seq::SliceRandom;
 use rand::thread_rng;
-use std::collections::HashMap;
 
 #[derive(Debug)]
 struct Mapper {

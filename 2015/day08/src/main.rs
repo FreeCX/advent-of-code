@@ -9,7 +9,7 @@ fn analyze(string: &str) -> usize {
             first_flag = true;
             f.len()
         } else {
-            (&f[2..]).len() + 1
+            (f[2..]).len() + 1
         }
     }
     result

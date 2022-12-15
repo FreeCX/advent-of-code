@@ -1,7 +1,7 @@
 mod parse;
-mod types;
 mod part_one;
 mod part_two;
+mod types;
 
 #[cfg(test)]
 mod tests;

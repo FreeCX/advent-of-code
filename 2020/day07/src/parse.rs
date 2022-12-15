@@ -8,7 +8,7 @@ fn take_name(data: &str) -> String {
     if name.contains("bag") {
         name = name.replace("bag", "");
     }
-    if name.contains(".") {
+    if name.contains('.') {
         name = name.replace('.', "");
     }
     name.trim().to_string()

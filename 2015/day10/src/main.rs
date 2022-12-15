@@ -5,7 +5,7 @@ fn compress(data: &str) -> String {
     let mut result = String::new();
     let mut current = 0;
     let mut counter = 0;
-    for (index, item) in data.chars().map(|x| x as u8 - 0x30).enumerate() {
+    for (index, item) in data.chars().map(|x| x as u8 - b'0').enumerate() {
         if index == 0 {
             current = item;
         }

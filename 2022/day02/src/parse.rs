@@ -1,4 +1,4 @@
-use crate::types::{Round, State, Choose};
+use crate::types::{Choose, Round, State};
 
 pub fn parse(input: &str) -> Vec<Round> {
     let mut result = Vec::new();

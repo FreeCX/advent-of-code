@@ -15,7 +15,7 @@ pub fn process(n: &[i64], header: usize) -> i64 {
     let mut pointer = header;
     for item in n.iter().skip(header) {
         let window = &n[pointer - header..pointer];
-        if !has_sum(&window, *item) {
+        if !has_sum(window, *item) {
             return *item;
         }
         pointer += 1;

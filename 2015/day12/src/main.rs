@@ -3,7 +3,7 @@ extern crate json;
 fn json_sum_one(data: &json::JsonValue) -> i32 {
     match data {
         json::JsonValue::Number(_) => data.as_i32().unwrap(),
-        json::JsonValue::Object(obj) => obj.iter().map(|(_, v)| json_sum_one(&v)).sum(),
+        json::JsonValue::Object(obj) => obj.iter().map(|(_, v)| json_sum_one(v)).sum(),
         json::JsonValue::Array(array) => array.iter().map(json_sum_one).sum(),
         _ => 0,
     }

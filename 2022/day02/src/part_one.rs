@@ -1,5 +1,6 @@
-use crate::types::{Round, State};
 use std::cmp::Ordering;
+
+use crate::types::{Round, State};
 
 pub fn outcome_of_round(opponent: &State, you: &State) -> u32 {
     match opponent.cmp(you) {

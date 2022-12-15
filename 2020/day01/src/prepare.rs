@@ -11,7 +11,7 @@ pub fn find_one(value: i32, sum_val: i32, list: &HashSet<i32>) -> Option<i32> {
 
 pub fn process(value: i32, input: &str) -> HashSet<i32> {
     input
-        .split("\n")
+        .split('\n')
         .map(|x| x.trim())
         .filter(|x| !x.is_empty())
         .map(|x| x.parse().unwrap())

@@ -1,13 +1,11 @@
-use crate::prepare::*;
 use std::collections::HashSet;
+
+use crate::prepare::*;
 
 pub fn process(sum_val: i32, input: &HashSet<i32>) -> Option<i32> {
     for item in input {
-        match find_one(*item, sum_val, &input) {
-            Some(value) => {
-                return Some(item * value);
-            }
-            None => (),
+        if let Some(value) = find_one(*item, sum_val, input) {
+            return Some(item * value);
         }
     }
     None

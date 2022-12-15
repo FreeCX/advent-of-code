@@ -10,7 +10,7 @@ pub enum State {
 pub enum Choose {
     Lose,
     Draw,
-    Win
+    Win,
 }
 
 pub type Round = (State, State, Choose);

@@ -15,7 +15,7 @@ fn increment(mut data: Vec<u8>) -> Vec<u8> {
 
 // rule 1: passwords must include one increasing straight of at least three letters, like abc, bcd, cde,
 // and so on, up to xyz. They cannot skip letters; abd doesn't count.
-fn rule_one(data: &Vec<u8>) -> bool {
+fn rule_one(data: &[u8]) -> bool {
     let mut seq_size = 1;
     let mut last = 0;
     for current in data {

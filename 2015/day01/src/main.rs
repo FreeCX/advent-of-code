@@ -23,5 +23,5 @@ fn floor(string: &str) -> (i32, Option<usize>) {
 
 fn main() {
     let buffer = include_str!("../data/input");
-    println!("(floor, problem_at) = {:?}", floor(&buffer));
+    println!("(floor, problem_at) = {:?}", floor(buffer));
 }

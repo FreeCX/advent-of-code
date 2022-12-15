@@ -1,5 +1,5 @@
-use crate::types::{Round, Choose};
 use crate::part_one::{outcome_of_round, shape_selected};
+use crate::types::{Choose, Round};
 
 pub fn process(rounds: &[Round]) -> u32 {
     let mut total_score = 0;

@@ -17,11 +17,7 @@ pub struct Emulator {
 
 impl Emulator {
     pub fn new() -> Emulator {
-        Emulator {
-            acc: 0,
-            ip: 0,
-            code: Vec::new(),
-        }
+        Emulator { acc: 0, ip: 0, code: Vec::new() }
     }
 
     pub fn load(&mut self, code: &str) {

@@ -14,7 +14,7 @@ pub fn process(ids: &Vec<Id>) -> u32 {
     let mut valid_count = 0;
 
     for id in ids {
-        if is_valid_one(&id) {
+        if is_valid_one(id) {
             valid_count += 1;
         }
     }

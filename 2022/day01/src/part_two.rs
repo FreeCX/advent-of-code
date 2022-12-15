@@ -14,12 +14,10 @@ impl Top3 {
             self.c = self.b;
             self.b = self.a;
             self.a = value;
-        }
-        else if value > self.b {
+        } else if value > self.b {
             self.c = self.b;
             self.b = value;
-        }
-        else if value > self.c {
+        } else if value > self.c {
             self.c = value;
         }
     }

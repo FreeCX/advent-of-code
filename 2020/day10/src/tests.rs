@@ -1,12 +1,11 @@
+use crate::parse;
 use crate::part_one;
 use crate::part_two;
-use crate::parse;
 use crate::types::{Array, Diffs};
 
 const E1: &[u16] = &[16, 10, 15, 5, 1, 11, 7, 19, 6, 12, 4];
 const E2: &[u16] = &[
-    28, 33, 18, 42, 31, 14, 46, 20, 48, 47, 24, 23, 49, 45, 19, 38, 39, 11, 1, 32, 25, 35, 8,
-    17, 7, 9, 4, 2, 34, 10, 3,
+    28, 33, 18, 42, 31, 14, 46, 20, 48, 47, 24, 23, 49, 45, 19, 38, 39, 11, 1, 32, 25, 35, 8, 17, 7, 9, 4, 2, 34, 10, 3,
 ];
 
 #[test]
@@ -41,7 +40,6 @@ fn part_one() {
     let result = part_one::fold_one(part_one::process(&input));
     assert_eq!(result, 3034);
 }
-
 
 #[test]
 fn part_two() {

@@ -3,11 +3,10 @@ use crate::part_one;
 use crate::types::*;
 
 fn validate_height(height: &Option<Height>) -> bool {
-    if height.is_some() {
-        let h = height.as_ref().unwrap();
-        return match h.1 {
-            Unit::Centimer => return h.0 >= 150 && h.0 <= 193,
-            Unit::Inch => return h.0 >= 59 && h.0 <= 76,
+    if let Some(height) = height {
+        return match height.1 {
+            Unit::Centimer => return height.0 >= 150 && height.0 <= 193,
+            Unit::Inch => return height.0 >= 59 && height.0 <= 76,
             Unit::None => false,
         };
     };
@@ -15,13 +14,12 @@ fn validate_height(height: &Option<Height>) -> bool {
 }
 
 fn validate_hair_color(color: &Option<String>) -> bool {
-    if color.is_some() {
-        let v = color.as_ref().unwrap();
-        if v.len() != 7 || v.chars().nth(0) != Some('#') {
+    if let Some(color) = color {
+        if color.len() != 7 || !color.starts_with('#') {
             return false;
         }
-        for i in v.chars().skip(1) {
-            if !((i >= 0x30 as char && i <= 0x39 as char) || (i >= 'a' && i <= 'f')) {
+        for i in color.chars().skip(1) {
+            if !((i >= 0x30 as char && i <= 0x39 as char) || ('a'..='f').contains(&i)) {
                 return false;
             }
         }
@@ -32,13 +30,8 @@ fn validate_hair_color(color: &Option<String>) -> bool {
 }
 
 fn validate_eye_color(eye: &Option<String>) -> bool {
-    if eye.is_some() {
-        let colors: Vec<String> = vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"]
-            .iter()
-            .map(|&x| x.to_owned())
-            .collect();
-        let v = eye.clone().unwrap();
-        colors.contains(&v)
+    if let Some(eye) = eye {
+        vec!["amb", "blu", "brn", "gry", "grn", "hzl", "oth"].iter().any(|&color| eye == color)
     } else {
         false
     }
@@ -48,12 +41,11 @@ fn validate_passport_id(id: &Option<String>) -> bool {
     if id.is_none() {
         return false;
     }
-    if id.is_some() {
-        let v = id.as_ref().unwrap();
-        if v.len() != 9 {
+    if let Some(id) = id {
+        if id.len() != 9 {
             return false;
         }
-        for i in v.chars() {
+        for i in id.chars() {
             if !(i >= 0x30 as char && i <= 0x39 as char) {
                 return false;
             }
@@ -88,7 +80,7 @@ pub fn process(ids: &Vec<Id>) -> u32 {
     let mut valid_count = 0;
 
     for id in ids {
-        if part_one::is_valid_one(&id) && is_valid_two(&id) {
+        if part_one::is_valid_one(id) && is_valid_two(id) {
             valid_count += 1;
         }
     }

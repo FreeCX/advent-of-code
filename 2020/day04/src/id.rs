@@ -26,7 +26,7 @@ impl Id {
     }
 
     pub fn set(&mut self, data: &str) {
-        let kv: Vec<_> = data.split(":").collect();
+        let kv: Vec<_> = data.split(':').collect();
         match kv[0] {
             "byr" => self.birth_year = kv[1].parse().ok(),
             "iyr" => self.issue_year = kv[1].parse().ok(),
