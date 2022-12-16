@@ -10,16 +10,24 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Run tests 2015
-      working-directory: ./2015
-      run: cargo test --verbose
-    - name: Run tests 2020
-      working-directory: ./2020
-      run: cargo test --verbose
-    - name: Run tests 2022
-      working-directory: ./2022
-      run: cargo test --verbose
+      - uses: actions/checkout@v2
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run tests 2015
+        working-directory: ./2015
+        run: cargo test --verbose
+
+      - name: Run tests 2020
+        working-directory: ./2020
+        run: cargo test --verbose
+
+      - name: Run tests 2022
+        working-directory: ./2022
+        run: cargo test --verbose
