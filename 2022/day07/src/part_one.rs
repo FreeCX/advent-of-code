@@ -28,9 +28,11 @@ pub fn report(input: &[LineType]) -> HashMap<String, u32> {
 }
 
 pub fn process(input: &[LineType]) -> u32 {
+    let at_most_size = 100_000;
     let mut result = 0;
-    for (_, size) in report(input) {
-        if size < 100000 {
+
+    for size in report(input).into_values() {
+        if size < at_most_size {
             result += size;
         }
     }
