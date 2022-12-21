@@ -10,5 +10,5 @@ fn main() {
     let bags = parse::parse(include_str!("../data/input"));
 
     println!("Part One = {}", part_one::process(&bags));
-    println!("Part two = {}", part_two::process(&bags));
+    println!("Part Two = {}", part_two::process(&bags));
 }
