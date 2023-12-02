@@ -36,7 +36,7 @@ mod tests {
     use crate::part_two::process;
 
     #[test]
-    fn default() {
+    fn example() {
         assert_eq!(process(include_str!("../data/example02")), 281);
     }
 }
