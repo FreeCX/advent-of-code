@@ -11,7 +11,7 @@ const Data = std.ArrayList([]u8);
 fn parse(data: []u8, allocator: mem.Allocator) !Data {
     var reader = io.Reader.fixed(data);
 
-    var result = try std.ArrayList([]u8).initCapacity(allocator, 200);
+    var result = try Data.initCapacity(allocator, 200);
     while (true) {
         const raw = reader.takeDelimiterExclusive('\n');
         if (raw == error.EndOfStream) {

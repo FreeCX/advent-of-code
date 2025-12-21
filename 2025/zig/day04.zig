@@ -78,7 +78,7 @@ fn partTwo(data: Data, allocator: mem.Allocator) !u64 {
     var result: u64 = 0;
 
     const size: u16 = @intCast(data.rows);
-    var delete = try std.array_list.Aligned(usize, null).initCapacity(allocator, size * size);
+    var delete = try std.ArrayList(usize).initCapacity(allocator, size * size);
     defer delete.deinit(allocator);
 
     while (true) {
