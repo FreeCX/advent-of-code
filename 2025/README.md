@@ -11,3 +11,6 @@
 
 ## Day 4: Printing Department
 [Link](https://adventofcode.com/2025/day/4) --- [Data](./data/day04.txt) --- [Code](./zig/day04.zig)
+
+## Day 5: Cafeteria
+[Link](https://adventofcode.com/2025/day/5) --- [Data](./data/day05.txt) --- [Code](./zig/day05.zig)
