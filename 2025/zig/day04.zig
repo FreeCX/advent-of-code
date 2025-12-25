@@ -1,8 +1,6 @@
 const std = @import("std");
 const testing = std.testing;
 const mem = std.mem;
-const math = std.math;
-const fmt = std.fmt;
 const io = std.Io;
 const util = @import("util.zig");
 
