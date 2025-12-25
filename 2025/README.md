@@ -14,3 +14,6 @@
 
 ## Day 5: Cafeteria
 [Link](https://adventofcode.com/2025/day/5) --- [Data](./data/day05.txt) --- [Code](./zig/day05.zig)
+
+## Day 6: Trash Compactor
+[Link](https://adventofcode.com/2025/day/6) --- [Data](./data/day06.txt) --- [Code](./zig/day06.zig)
